@@ -1,5 +1,9 @@
 package openccsensors.client.renderer.tileentity;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
@@ -42,7 +46,7 @@ public class TileEntityGaugeRenderer extends TileEntitySpecialRenderer {
 		this.modelGauge.render();
 		GL11.glPopMatrix();
 
-		FontRenderer fontRenderer = this.getFontRenderer();
+		FontRenderer fontRenderer = this.func_147498_b();
 		GL11.glTranslatef(0.0F, 0.1F, -0.43F);
 		GL11.glScalef(0.02F, 0.02F, 0.02F);
 		GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);

@@ -1,9 +1,13 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.tileentity.IEnergyInfo;
 

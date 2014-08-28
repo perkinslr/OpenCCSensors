@@ -1,5 +1,9 @@
 package openccsensors.client.model;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import cpw.mods.fml.relauncher.Side;

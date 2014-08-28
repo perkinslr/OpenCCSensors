@@ -1,14 +1,18 @@
 package openccsensors.common.item;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.IItemMeta;
 import openccsensors.api.IRequiresIconLoading;
@@ -20,7 +24,7 @@ public class ItemGeneric extends Item {
 	private HashMap<Integer, IItemMeta> metaitems = new HashMap<Integer, IItemMeta>();
 
 	public ItemGeneric() {
-		super(OpenCCSensors.Config.genericItemID);
+		super();
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setMaxStackSize(64);
@@ -29,7 +33,7 @@ public class ItemGeneric extends Item {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(int id, CreativeTabs tab, List subItems) {
+	public void getSubItems(Item id, CreativeTabs tab, List subItems) {
 		OpenCCSensors.turtleUpgradeSensor.addTurtlesToCreative(subItems);
 		for (Entry<Integer, IItemMeta> entry : metaitems.entrySet()) {
 			if (entry.getValue().displayInCreative()) {
@@ -51,7 +55,7 @@ public class ItemGeneric extends Item {
 	}
 	
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		for (Entry<Integer, IItemMeta> entry : metaitems.entrySet()) {
 			if (entry.getValue() instanceof IRequiresIconLoading) {
 				((IRequiresIconLoading)entry.getValue()).loadIcon(iconRegister);
@@ -60,7 +64,7 @@ public class ItemGeneric extends Item {
 	}
 	
 	@Override
-    public Icon getIconFromDamage(int id)
+    public IIcon getIconFromDamage(int id)
     {
 		IItemMeta meta = metaitems.get(id);
 		if (meta == null) {

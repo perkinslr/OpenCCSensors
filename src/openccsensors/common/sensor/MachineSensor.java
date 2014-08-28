@@ -1,13 +1,18 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import openccsensors.api.IGaugeSensor;
 import openccsensors.api.IRequiresIconLoading;
@@ -20,7 +25,7 @@ import openccsensors.common.util.ThermalExpansionUtils;
 
 public class MachineSensor extends TileSensor implements ISensor, IRequiresIconLoading, IGaugeSensor {
 
-	private Icon icon;
+	private IIcon icon;
 	
 	private String[] gaugeProperties = new String[] {
 		"HeatPercentage",
@@ -40,7 +45,7 @@ public class MachineSensor extends TileSensor implements ISensor, IRequiresIconL
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:machine");
 	}
 
@@ -77,13 +82,13 @@ public class MachineSensor extends TileSensor implements ISensor, IRequiresIconL
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.redstone);
+		return new ItemStack(Items.redstone);
 	}
 
 }

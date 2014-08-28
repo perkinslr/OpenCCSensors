@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import ic2.api.crops.CropCard;
 import ic2.api.crops.Crops;
 import ic2.api.crops.ICropTile;
@@ -7,7 +11,6 @@ import ic2.api.energy.EnergyNet;
 import ic2.api.energy.tile.IEnergyConductor;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
-import ic2.api.reactor.IC2Reactor;
 import ic2.api.reactor.IReactor;
 import ic2.api.reactor.IReactorChamber;
 import ic2.api.tile.IEnergyStorage;
@@ -68,7 +71,7 @@ public class Ic2Utils {
 			int heat = reactor.getHeat();
 			response.put("Heat", heat);
 			response.put("MaxHeat", maxHeat);
-			response.put("Output", reactor.getReactorEnergyOutput() * IC2Reactor.getEUOutput());
+			response.put("Output", reactor.getReactorEnergyOutput() * reactor.getReactorEUEnergyOutput());
 			response.put("Active", reactor.produceEnergy());
 			response.put("HeatPercentage", 0);
 			if (maxHeat > 0) {
@@ -119,10 +122,10 @@ public class Ic2Utils {
 			tile instanceof IEnergySource ||
 			tile instanceof IEnergyConductor) {
 			
-			tile = EnergyNet.instance.getTileEntity(tile.worldObj, tile.xCoord, tile.yCoord, tile.zCoord);
+			tile = EnergyNet.instance.getTileEntity(tile.getWorldObj(), tile.xCoord, tile.yCoord, tile.zCoord);
 			if (tile != null) {
-				long emitted = EnergyNet.instance.getTotalEnergyEmitted(tile);
-				long sunken = EnergyNet.instance.getTotalEnergySunken(tile);
+				double emitted = EnergyNet.instance.getTotalEnergyEmitted(tile);
+				double sunken = EnergyNet.instance.getTotalEnergySunken(tile);
 				response.put("EnergyEmitted", emitted);
 				response.put("EnergySunken", sunken);
 			}

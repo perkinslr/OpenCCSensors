@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

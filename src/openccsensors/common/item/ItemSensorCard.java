@@ -1,18 +1,22 @@
 package openccsensors.common.item;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.EnumItemRarity;
 import openccsensors.api.IRequiresIconLoading;
@@ -32,7 +36,7 @@ public class ItemSensorCard extends Item implements ISensorCardRegistry {
 	public HashMap<Integer, SensorCard> cards = new HashMap<Integer, SensorCard>();
 
 	public ItemSensorCard() {
-		super(OpenCCSensors.Config.sensorCardID);
+		super();
 		setMaxDamage(0);
 		setHasSubtypes(true);
 		setCreativeTab(OpenCCSensors.tabOpenCCSensors);
@@ -140,7 +144,7 @@ public class ItemSensorCard extends Item implements ISensorCardRegistry {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		for (IRequiresIconLoading item : iconLoadList) {
 			item.loadIcon(iconRegister);
 		}
@@ -179,7 +183,7 @@ public class ItemSensorCard extends Item implements ISensorCardRegistry {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(int id, CreativeTabs tab, List subItems) {
+	public void getSubItems(Item id, CreativeTabs tab, List subItems) {
 		for (Entry<Integer, SensorCard> entry : cards.entrySet()) {
 			subItems.add(new ItemStack(id, 1, entry.getKey()));
 		}
@@ -193,7 +197,7 @@ public class ItemSensorCard extends Item implements ISensorCardRegistry {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Icon getIconFromDamageForRenderPass(int dmgValue, int renderPass) {
+	public IIcon getIconFromDamageForRenderPass(int dmgValue, int renderPass) {
 		SensorCard card = getSensorCard(dmgValue);
 		return card.getIconForRenderPass(renderPass);
 	}

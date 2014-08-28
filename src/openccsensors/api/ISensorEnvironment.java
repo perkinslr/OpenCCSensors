@@ -1,5 +1,9 @@
 package openccsensors.api;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Vec3;

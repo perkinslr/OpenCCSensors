@@ -1,19 +1,24 @@
 package openccsensors.common.block;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.IBasicSensor;
 import openccsensors.common.sensor.ProximitySensor;
@@ -27,20 +32,20 @@ public class BlockBasicSensor extends BlockContainer {
 	public static final int PROXIMITY_SENSOR_ID = 0;
 
 	public static class Icons {
-		public static Icon top;
-		public static Icon bottom;
-		public static Icon sideAll;
-		public static Icon sideOwner;
-		public static Icon sidePlayers;
+		public static IIcon top;
+		public static IIcon bottom;
+		public static IIcon sideAll;
+		public static IIcon sideOwner;
+		public static IIcon sidePlayers;
 	};
 
 	public BlockBasicSensor() {
-		super(OpenCCSensors.Config.basicSensorBlockID, Material.ground);
+		super(Material.ground);
 		setHardness(0.5F);
 		setCreativeTab(OpenCCSensors.tabOpenCCSensors);
 		GameRegistry.registerBlock(this, "basicProximitySensor");
 		GameRegistry.registerTileEntity(TileEntityBasicProximitySensor.class, "basicProximitySensor");
-		setUnlocalizedName("openccsensors.proximitysensor");
+		this.setBlockName("openccsensors.proximitysensor");
 		
 	}
 
@@ -50,7 +55,7 @@ public class BlockBasicSensor extends BlockContainer {
 	}
 
 	@Override
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerBlockIcons(IIconRegister iconRegister) {
 		Icons.top = iconRegister.registerIcon("openccsensors:proxTop");
 		Icons.bottom = iconRegister.registerIcon("openccsensors:proxBottom");
 		Icons.sideAll = iconRegister.registerIcon("openccsensors:proxSideAll");
@@ -59,7 +64,7 @@ public class BlockBasicSensor extends BlockContainer {
 	}
 	
     @Override
-	public Icon getIcon(int side, int par2)
+	public IIcon getIcon(int side, int par2)
     {
 		switch(side) {
 		case 0:
@@ -71,8 +76,8 @@ public class BlockBasicSensor extends BlockContainer {
 		}
     }
     
-	@Override
-    public Icon getBlockTexture(IBlockAccess blockAccess, int x, int y, int z, int side)
+	//@Override
+    public IIcon getTexture(IBlockAccess blockAccess, int x, int y, int z, int side)
     {
 		switch(side) {
 		case 0:
@@ -80,7 +85,7 @@ public class BlockBasicSensor extends BlockContainer {
 		case 1:
 			return Icons.top;
 		default:
-			TileEntity tile = blockAccess.getBlockTileEntity(x, y, z);
+			TileEntity tile = blockAccess.getTileEntity(x, y, z);
 			if ((tile != null) && ((tile instanceof TileEntityBasicProximitySensor))) {
 				switch(((TileEntityBasicProximitySensor) tile).getEntityMode()) {
 					case ProximitySensor.MODE_ALL:
@@ -96,7 +101,7 @@ public class BlockBasicSensor extends BlockContainer {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world) {
+	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEntityBasicProximitySensor();
 	}
 
@@ -108,7 +113,7 @@ public class BlockBasicSensor extends BlockContainer {
 	@Override
 	public int isProvidingWeakPower(IBlockAccess iblockaccess, int x, int y,
 			int z, int m) {
-		TileEntity tile = iblockaccess.getBlockTileEntity(x, y, z);
+		TileEntity tile = iblockaccess.getTileEntity(x, y, z);
 		if ((tile != null) && ((tile instanceof IBasicSensor))) {
 			return ((IBasicSensor) tile).getPowerOutput();
 		}
@@ -122,25 +127,23 @@ public class BlockBasicSensor extends BlockContainer {
 	}
 
 	@Override
-	public void breakBlock(World worldObj, int xCoord, int yCoord, int zCoord,
-			int par5, int par6) {
-		int blockId = OpenCCSensors.Config.basicSensorBlockID;
-		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord + 1, zCoord, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord - 1, yCoord, zCoord, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord + 1, yCoord, zCoord, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord - 1, blockId);
-		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord + 1, blockId);
+	public void breakBlock(World worldObj, int xCoord, int yCoord, int zCoord, Block par5, int par6) {
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord + 1, zCoord, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord - 1, yCoord, zCoord, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord + 1, yCoord, zCoord, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord - 1, par5);
+		worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord + 1, par5);
 		super.breakBlock(worldObj, xCoord, yCoord, zCoord, par5, par6);
 
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
-		TileEntity tile = world.getBlockTileEntity(x,  y,  z);
-		if (tile != null && tile instanceof TileEntityBasicProximitySensor) {
-			((TileEntityBasicProximitySensor) tile).setOwner(player.getEntityName());
+		TileEntity tile = world.getTileEntity(x,  y,  z);
+		if (tile != null && tile instanceof TileEntityBasicProximitySensor && player instanceof EntityPlayer) {
+			((TileEntityBasicProximitySensor) tile).setOwner(((EntityPlayer) player).getDisplayName());
 		}
 		super.onBlockPlacedBy(world, x, y, z, player, itemStack);
 	}
@@ -151,7 +154,7 @@ public class BlockBasicSensor extends BlockContainer {
 			if (player.isSneaking()) {
 				return false;
 			}
-			TileEntity tile = world.getBlockTileEntity(x,  y,  z);
+			TileEntity tile = world.getTileEntity(x,  y,  z);
 			if (tile != null && tile instanceof TileEntityBasicProximitySensor) {
 				((TileEntityBasicProximitySensor) tile).onBlockClicked(player);
 			}
@@ -160,13 +163,13 @@ public class BlockBasicSensor extends BlockContainer {
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(World world, int x, int y, int z)
+	public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z)
 	{
 	    return false;
 	}
 
 	@Override
-    public boolean isFlammable(IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face)
+	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face)
 	{
 		return false;
 	}

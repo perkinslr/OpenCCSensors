@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,19 +1,24 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockMelon;
-import net.minecraft.block.BlockNetherStalk;
+import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockPumpkin;
 import net.minecraft.block.BlockStem;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import openccsensors.api.IRequiresIconLoading;
 import openccsensors.api.ISensor;
@@ -42,10 +47,10 @@ public class CropSensor implements ISensor, IRequiresIconLoading {
 		}
 	}
 	
-	private Icon icon;
+	private IIcon icon;
 	
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:crop");
 	}
 
@@ -76,7 +81,7 @@ public class CropSensor implements ISensor, IRequiresIconLoading {
 				}else {
 					response.put("Status", STATUS_GROWING);
 				}
-			}else if (target.block instanceof BlockNetherStalk) {
+			}else if (target.block instanceof BlockNetherWart) {
 				if (target.metadata == 0) {
 					response.put("Status", STATUS_NEW);
 				}else {
@@ -110,13 +115,13 @@ public class CropSensor implements ISensor, IRequiresIconLoading {
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.wheat);
+		return new ItemStack(Items.wheat);
 	}
 	
 	@Override
@@ -135,11 +140,11 @@ public class CropSensor implements ISensor, IRequiresIconLoading {
 
 					String name = String.format("%s,%s,%s", x, y, z);
 
-					Block b = Block.blocksList[world.getBlockId(tileX, tileY, tileZ)];
+					Block b = world.getBlock(tileX, tileY, tileZ);
 					
 					if (b != null && (
 							b instanceof BlockCrops ||
-							b instanceof BlockNetherStalk ||
+							b instanceof BlockNetherWart ||
 							b instanceof BlockStem ||
 							b instanceof BlockPumpkin ||
 							b instanceof BlockMelon
@@ -153,7 +158,7 @@ public class CropSensor implements ISensor, IRequiresIconLoading {
 						);
 						targets.put(name, potentialTarget);
 					}else {
-						TileEntity tile = world.getBlockTileEntity(tileX, tileY, tileZ);
+						TileEntity tile = world.getTileEntity(tileX, tileY, tileZ);
 						if (Mods.IC2 && Ic2Utils.isValidCropTarget(tile)) {
 							targets.put(name, tile);
 						}

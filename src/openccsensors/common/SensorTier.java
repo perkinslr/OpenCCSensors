@@ -1,7 +1,11 @@
 package openccsensors.common;
 
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import openccsensors.api.EnumItemRarity;
 import openccsensors.api.IRequiresIconLoading;
 import openccsensors.api.ISensorTier;
@@ -11,7 +15,7 @@ public class SensorTier implements ISensorTier, IRequiresIconLoading {
 	private String name;
 	private EnumItemRarity rarity;
 	private int multiplier;
-	private Icon icon;
+	private IIcon icon;
 	private String iconName;
 
 	public SensorTier(String name, EnumItemRarity rarity, int multiplier, String iconName) {
@@ -37,12 +41,12 @@ public class SensorTier implements ISensorTier, IRequiresIconLoading {
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon(iconName);
 	}
 

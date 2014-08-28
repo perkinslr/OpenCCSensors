@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.lang.reflect.Field;
 import java.util.Map.Entry;
 
@@ -21,8 +25,8 @@ public class RecipeUtils {
 					"rpr",
 					"rrr",
 					"aaa",
-					Character.valueOf('r'), new ItemStack(Item.redstone),
-					Character.valueOf('a'), new ItemStack(Item.paper),
+					Character.valueOf('r'), new ItemStack(Items.redstone),
+					Character.valueOf('a'), new ItemStack(Items.paper),
 					Character.valueOf('p'), input				
 				}
 			));
@@ -72,9 +76,9 @@ public class RecipeUtils {
 					"ooo",
 					"ror",
 					"sss",
-					Character.valueOf('o'), new ItemStack(Block.obsidian),
-					Character.valueOf('r'), new ItemStack(Item.redstone),
-					Character.valueOf('s'), new ItemStack(Block.stone)
+					Character.valueOf('o'), new ItemStack(Blocks.obsidian),
+					Character.valueOf('r'), new ItemStack(Items.redstone),
+					Character.valueOf('s'), new ItemStack(Blocks.stone)
 				}
 			));	
 	}
@@ -84,8 +88,8 @@ public class RecipeUtils {
 				new ItemStack(OpenCCSensors.Blocks.gaugeBlock),
 				new Object[] {
 					"grm",
-					Character.valueOf('g'), new ItemStack(Block.thinGlass),
-					Character.valueOf('r'), new ItemStack(Item.redstone),
+					Character.valueOf('g'), new ItemStack(Blocks.glass_pane),
+					Character.valueOf('r'), new ItemStack(Items.redstone),
 					Character.valueOf('m'), new ItemStack(getMonitor(), 1, 2)
 				}
 			));	
@@ -120,10 +124,10 @@ public class RecipeUtils {
 				"   ",
 				"cpc",
 				"rir",
-				Character.valueOf('c'), new ItemStack(Item.comparator),
+				Character.valueOf('c'), new ItemStack(Items.comparator),
 				Character.valueOf('p'), proxCard,
-				Character.valueOf('r'), new ItemStack(Item.redstone),
-				Character.valueOf('i'), new ItemStack(Block.blockIron),				
+				Character.valueOf('r'), new ItemStack(Items.redstone),
+				Character.valueOf('i'), new ItemStack(Blocks.iron_block),				
 			}
 		));
 	}

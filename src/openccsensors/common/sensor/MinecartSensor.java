@@ -1,19 +1,24 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import mods.railcraft.api.carts.IEnergyTransfer;
 import mods.railcraft.api.carts.IExplosiveCart;
 import mods.railcraft.api.carts.IRoutableCart;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidHandler;
 import openccsensors.api.IRequiresIconLoading;
@@ -27,7 +32,7 @@ import openccsensors.common.util.TankUtils;
 
 public class MinecartSensor implements ISensor, IRequiresIconLoading {
 
-	private Icon icon;
+	private IIcon icon;
 
 
 	@Override
@@ -43,7 +48,7 @@ public class MinecartSensor implements ISensor, IRequiresIconLoading {
 		position.put("Z", minecart.posZ - sensorPos.posZ);
 		response.put("Position", position);
 		
-		response.put("Name", minecart.getEntityName());
+		response.put("Name", minecart.func_95999_t());
 		response.put("RawName", EntityList.getEntityString(minecart));
 		
 		if (minecart instanceof IInventory) {
@@ -97,19 +102,19 @@ public class MinecartSensor implements ISensor, IRequiresIconLoading {
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:minecart");
 		
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.minecartEmpty);
+		return new ItemStack(Items.minecart);
 	}
 
 }

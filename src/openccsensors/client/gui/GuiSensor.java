@@ -1,5 +1,9 @@
 package openccsensors.client.gui;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -30,14 +34,14 @@ public class GuiSensor extends GuiContainer {
 
 		String sensorGuiName = StatCollector.translateToLocal("gui.openccsensors.sensor");
 
-		fontRenderer.drawString(
+		fontRendererObj.drawString(
 				sensorGuiName,
 				this.xSize / 2
-				- (fontRenderer.getStringWidth(sensorGuiName) / 2),
+				- (fontRendererObj.getStringWidth(sensorGuiName) / 2),
 				6,
 				4210752
 		);
-		fontRenderer.drawString(
+		fontRendererObj.drawString(
 				StatCollector.translateToLocal("container.inventory"),
 				8,
 				this.ySize - 96 + 2,

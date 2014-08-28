@@ -1,5 +1,9 @@
 package openccsensors.common;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +62,7 @@ public class CommonProxy {
 		
 		ComputerCraftAPI.registerPeripheralProvider(OpenCCSensors.Blocks.sensorBlock);
 		
-		NetworkRegistry.instance().registerGuiHandler(OpenCCSensors.instance, new GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(OpenCCSensors.instance, new GuiHandler());
 
 		TileEntityGauge.addGaugeSensor(OpenCCSensors.Sensors.machineSensor);
 		TileEntityGauge.addGaugeSensor(OpenCCSensors.Sensors.powerSensor);

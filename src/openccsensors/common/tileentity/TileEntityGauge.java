@@ -1,16 +1,19 @@
 package openccsensors.common.tileentity;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.IGaugeSensor;
 import openccsensors.api.IMethodCallback;
@@ -18,6 +21,7 @@ import openccsensors.common.util.CallbackEventManager;
 import dan200.computercraft.api.ComputerCraftAPI;
 import dan200.computercraft.api.filesystem.IMount;
 import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 
@@ -72,22 +76,22 @@ public class TileEntityGauge extends TileEntity implements IPeripheral {
 		});
 	}
 
-	@Override
-	public Packet getDescriptionPacket() {
-		Packet132TileEntityData packet = new Packet132TileEntityData();
-		packet.actionType = 0;
-		packet.xPosition = xCoord;
-		packet.yPosition = yCoord;
-		packet.zPosition = zCoord;
-		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
-		packet.data = nbt;
-		return packet;
-	}
-	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		readFromNBT(pkt.data);
-	}
+//	@Override
+//	public Packet getDescriptionPacket() {
+//		Packet132TileEntityData packet = new Packet132TileEntityData();
+//		packet.actionType = 0;
+//		packet.xPosition = xCoord;
+//		packet.yPosition = yCoord;
+//		packet.zPosition = zCoord;
+//		NBTTagCompound nbt = new NBTTagCompound();
+//		writeToNBT(nbt);
+//		packet.data = nbt;
+//		return packet;
+//	}
+//	@Override
+//	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+//		readFromNBT(pkt.data);
+//	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
@@ -123,7 +127,7 @@ public class TileEntityGauge extends TileEntity implements IPeripheral {
 
 	@Override
 	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method,
-			Object[] arguments) throws Exception {
+			Object[] arguments) throws LuaException, InterruptedException{
 		return new Object[] {
 				eventManager.queueMethodCall(computer, method, arguments)
 		};
@@ -147,7 +151,7 @@ public class TileEntityGauge extends TileEntity implements IPeripheral {
 
 			ForgeDirection infront = ForgeDirection.getOrientation(this.getFacing());
 			ForgeDirection behind = infront.getOpposite();
-			TileEntity behindTile = worldObj.getBlockTileEntity(xCoord + behind.offsetX, yCoord, zCoord + behind.offsetZ);
+			TileEntity behindTile = worldObj.getTileEntity(xCoord + behind.offsetX, yCoord, zCoord + behind.offsetZ);
 			if (behindTile != null) {
 				for (IGaugeSensor gaugeSensor : gaugeSensors)  {
 					if (gaugeSensor.isValidTarget(behindTile)) {

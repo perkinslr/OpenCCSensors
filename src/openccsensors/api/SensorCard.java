@@ -1,6 +1,10 @@
 package openccsensors.api;
 
-import net.minecraft.util.Icon;
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
+import net.minecraft.util.IIcon;
 
 
 public class SensorCard {
@@ -21,7 +25,7 @@ public class SensorCard {
 		return sensor;
 	}
 	
-	public Icon getIconForRenderPass(int pass) {
+	public IIcon getIconForRenderPass(int pass) {
 		if (pass == 0) {
 			return getSensor().getIcon();
 		}

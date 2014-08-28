@@ -1,12 +1,14 @@
 package openccsensors.common.tileentity.basic;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatMessageComponent;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import openccsensors.OpenCCSensors;
@@ -58,16 +60,16 @@ public class TileEntityBasicProximitySensor extends TileEntity implements IBasic
 
 			if (flag) {
 
-				int blockId = OpenCCSensors.Config.basicSensorBlockID;
-
+				Block blockId = OpenCCSensors.Blocks.basicSensorBlock;
+				
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, output, 3);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord - 1, zCoord, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord + 1, zCoord, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord - 1, yCoord, zCoord, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord + 1, yCoord, zCoord, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord - 1, blockId);
-				worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord + 1, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord, yCoord, zCoord, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord, yCoord - 1, zCoord, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord, yCoord + 1, zCoord, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord - 1, yCoord, zCoord, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord + 1, yCoord, zCoord, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord, yCoord, zCoord - 1, blockId);
+				worldObj.notifyBlockOfNeighborChange(xCoord, yCoord, zCoord + 1, blockId);
 
 			}
 		}
@@ -78,7 +80,7 @@ public class TileEntityBasicProximitySensor extends TileEntity implements IBasic
 	}
 
 	public void onBlockClicked(EntityPlayer player) {
-		if (player.getEntityName().equals(owner)) {
+		if (player.getDisplayName().equals(owner)) {
 			entityMode++;
 			if (entityMode > 2) {
 				entityMode = 0;
@@ -96,7 +98,7 @@ public class TileEntityBasicProximitySensor extends TileEntity implements IBasic
 				break;
 			}
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			player.sendChatToPlayer(new ChatMessageComponent().addText(String.format("Changing sensor mode to \"%s\"", modeMsg)));
+			player.addChatMessage(new ChatComponentTranslation(String.format("Changing sensor mode to \"%s\"", modeMsg)));
 		}
 	}
 
@@ -105,7 +107,7 @@ public class TileEntityBasicProximitySensor extends TileEntity implements IBasic
 		return output;
 	}
 
-	@Override
+	/*@Override
 	public Packet getDescriptionPacket() {
 		Packet132TileEntityData packet = new Packet132TileEntityData();
 		packet.actionType = 0;
@@ -123,7 +125,7 @@ public class TileEntityBasicProximitySensor extends TileEntity implements IBasic
 		readFromNBT(pkt.data);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
-
+*/
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		this.entityMode = nbttagcompound.getInteger("entityMode");

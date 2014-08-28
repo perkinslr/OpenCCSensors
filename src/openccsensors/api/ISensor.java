@@ -1,10 +1,14 @@
 package openccsensors.api;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public interface ISensor {
@@ -13,6 +17,6 @@ public interface ISensor {
 	String[] getCustomMethods(ISensorTier tier);
 	Object callCustomMethod(World world, ChunkCoordinates location, int methodID, Object[] args, ISensorTier tier) throws Exception;
 	String getName();
-	Icon getIcon();
+	IIcon getIcon();
 	ItemStack getUniqueRecipeItem();
 }

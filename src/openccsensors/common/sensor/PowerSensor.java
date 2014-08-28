@@ -1,13 +1,17 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import openccsensors.api.IGaugeSensor;
 import openccsensors.api.IRequiresIconLoading;
@@ -23,7 +27,7 @@ import cpw.mods.fml.common.Loader;
 
 public class PowerSensor extends TileSensor implements ISensor, IRequiresIconLoading, IGaugeSensor {
 
-	private Icon icon;
+	private IIcon icon;
 	private String[] gaugeProperties = new String[] {
 		"PowerPercentFull"	
 	};
@@ -90,17 +94,17 @@ public class PowerSensor extends TileSensor implements ISensor, IRequiresIconLoa
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.coal);
+		return new ItemStack(Items.coal);
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:power");
 	}
 

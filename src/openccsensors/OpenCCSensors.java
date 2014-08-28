@@ -1,9 +1,14 @@
 package openccsensors;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import openccsensors.api.IItemMeta;
 import openccsensors.common.CommonProxy;
 import openccsensors.common.SensorTier;
@@ -34,10 +39,8 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod( modid = "OCS", name = "OpenCCSensors", version = "1.6.4.4", dependencies = "required-after:ComputerCraft;after:CCTurtle;after:BuildCraft|Core;after:IC2;after:Thaumcraft;after:AppliedEnergistics;after:RailCraft;after:ArsMagica;after:UniversalElectricity;after:ThermalExpansion")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class OpenCCSensors {
 
 	public static class Blocks
@@ -108,6 +111,13 @@ public class OpenCCSensors {
                 public ItemStack getIconItemStack() {
                         return new ItemStack(Blocks.sensorBlock, 1, 0);
                 }
+
+                @Override
+                public Item getTabIconItem()
+                {
+                    // TODO Auto-generated method stub
+                    return getIconItemStack().getItem();
+                }
   };
 
 	@Instance( value = "OCS" )
@@ -140,26 +150,8 @@ public class OpenCCSensors {
 		
 		Configuration configFile = new Configuration(evt.getSuggestedConfigurationFile());
 
-		Property prop = configFile.getBlock("sensorBlockID", 341);
-		prop.comment = "The block ID for the sensor block";
-		Config.sensorBlockID = prop.getInt();
-
-		prop = configFile.getBlock("gaugeBlockID", 342);
-		prop.comment = "The block ID for the gauge block";
-		Config.gaugeBlockID = prop.getInt();
+		Property prop;
 		
-		prop = configFile.getBlock("basicSensorBlockID", 343);
-		prop.comment = "The block ID for the basic sensor block";
-		Config.basicSensorBlockID = prop.getInt();
-
-		prop = configFile.getItem("sensorCardID", 7486);
-		prop.comment = "The block ID for the sensor card";
-		Config.sensorCardID = prop.getInt();
-
-		prop = configFile.getItem("sensorUpgradeID", 7487);
-		prop.comment = "The block ID for the generic item";
-		Config.genericItemID = prop.getInt();
-
 		prop = configFile.get("general", "turtlePeripheralEnabled", true);
 		prop.comment = "Turtle Peripheral Enabled";
 		Config.turtlePeripheralEnabled = prop.getBoolean(true);

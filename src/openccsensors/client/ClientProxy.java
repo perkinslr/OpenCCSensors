@@ -1,5 +1,9 @@
 package openccsensors.client;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.io.File;
 
 import net.minecraft.client.Minecraft;

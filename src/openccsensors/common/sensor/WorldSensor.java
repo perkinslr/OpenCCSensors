@@ -1,12 +1,16 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import openccsensors.api.IRequiresIconLoading;
@@ -15,7 +19,7 @@ import openccsensors.api.ISensorTier;
 
 public class WorldSensor implements ISensor, IRequiresIconLoading {
 	
-	private Icon icon;
+	private IIcon icon;
 	
 	@Override
 	public HashMap getDetails(World world, Object obj, ChunkCoordinates sensorLocation, boolean additional) {
@@ -62,18 +66,18 @@ public class WorldSensor implements ISensor, IRequiresIconLoading {
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 	
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:world");
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.enderPearl);
+		return new ItemStack(Items.ender_pearl);
 	}
 
 }

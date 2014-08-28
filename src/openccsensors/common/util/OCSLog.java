@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,7 +19,7 @@ public class OCSLog {
 
 	public static void init() {
 		logger = Logger.getLogger("OpenCCSensors");
-		logger.setParent(FMLLog.getLogger());
+//		logger.setParent(FMLLog.getLogger());
 	}
 
 	public static void log(Level level, String format, Object... data) {

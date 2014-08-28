@@ -1,5 +1,9 @@
 package openccsensors.common.turtle;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;

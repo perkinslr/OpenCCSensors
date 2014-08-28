@@ -1,11 +1,15 @@
 package openccsensors.common.turtle;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import openccsensors.OpenCCSensors;
 import openccsensors.common.peripheral.PeripheralSensor;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -32,7 +36,7 @@ public class TurtleUpgradeSensor implements ITurtleUpgrade {
 		return this.peripheral.get(this.peripheral.size() - 1);
 	}
 
-	@Override
+	//@Override
 	public String getAdjective() {
 		String translation = LanguageRegistry.instance().getStringLocalization(
 				"turtle.openccsensors.sensor.adjective");
@@ -63,7 +67,7 @@ public class TurtleUpgradeSensor implements ITurtleUpgrade {
 	}
 
 	@Override
-	public Icon getIcon(ITurtleAccess turtle, TurtleSide side) {
+	public IIcon getIcon(ITurtleAccess turtle, TurtleSide side) {
 		return OpenCCSensors.Blocks.sensorBlock.turtleIcon;
 	}
 	
@@ -96,5 +100,12 @@ public class TurtleUpgradeSensor implements ITurtleUpgrade {
 			}		
 		} 	
 	}
+
+    @Override
+    public String getUnlocalisedAdjective()
+    {
+        // TODO Auto-generated method stub
+        return getAdjective();
+    }
 
 }

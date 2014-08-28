@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,14 +75,14 @@ public class InventoryUtils {
         {
             for (int i = 0; i < nbttaglist.tagCount(); ++i)
             {
-                short short1 = ((NBTTagCompound)nbttaglist.tagAt(i)).getShort("id");
-                short short2 = ((NBTTagCompound)nbttaglist.tagAt(i)).getShort("lvl");
-
-                if (Enchantment.enchantmentsList[short1] != null)
-                {
-                    response.put(offset, Enchantment.enchantmentsList[short1].getTranslatedName(short2));
-                    offset++;
-                }
+//                short short1 = ((NBTTagCompound)nbttaglist.tagAt(i)).getShort("id");
+//                short short2 = ((NBTTagCompound)nbttaglist.tagAt(i)).getShort("lvl");
+//
+//                if (Enchantment.enchantmentsList[short1] != null)
+//                {
+//                    response.put(offset, Enchantment.enchantmentsList[short1].getTranslatedName(short2));
+//                    offset++;
+//                }
             }
         }
         return response;

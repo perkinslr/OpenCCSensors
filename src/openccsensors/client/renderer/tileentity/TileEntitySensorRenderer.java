@@ -1,5 +1,9 @@
 package openccsensors.client.renderer.tileentity;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -43,7 +47,7 @@ public class TileEntitySensorRenderer extends TileEntitySpecialRenderer {
 				GL11.glTranslatef(-8.0f, 4.0f, 12.0f);
 				renderItem = ((RenderItem) RenderManager.instance.getEntityClassRenderObject(EntityItem.class));
 			    TextureManager re = Minecraft.getMinecraft().renderEngine;
-			    FontRenderer fr = getFontRenderer();
+			    FontRenderer fr = func_147498_b();
 				renderItem.renderItemIntoGUI(fr, re, sensorCardStack, 0, 0);
 
 			}

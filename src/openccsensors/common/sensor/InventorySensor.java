@@ -1,14 +1,19 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import openccsensors.api.IGaugeSensor;
 import openccsensors.api.IRequiresIconLoading;
@@ -20,7 +25,7 @@ import openccsensors.common.util.Mods;
 
 public class InventorySensor extends TileSensor implements ISensor, IRequiresIconLoading, IGaugeSensor {
 
-	private Icon icon;
+	private IIcon icon;
 	private String[] gaugeProperties = new String[] {
 		"InventoryPercentFull"	
 	};
@@ -98,18 +103,18 @@ public class InventorySensor extends TileSensor implements ISensor, IRequiresIco
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:inventory");
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Block.chest);
+		return new ItemStack(Blocks.chest);
 	}
 
 	@Override

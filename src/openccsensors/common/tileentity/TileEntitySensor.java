@@ -1,19 +1,24 @@
 package openccsensors.common.tileentity;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+//import net.minecraft.network.INetworkManager;
+//import net.minecraft.network.packet.Packet;
+//import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import openccsensors.api.ISensorEnvironment;
 import openccsensors.common.peripheral.PeripheralSensor;
 import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 
@@ -46,23 +51,23 @@ IPeripheral, IInventory {
 		rotation = (rotation + rotationSpeed) % 360;
 	}
 	
-	@Override
-	public Packet getDescriptionPacket() {
-		Packet132TileEntityData packet = new Packet132TileEntityData();
-		packet.actionType = 0;
-		packet.xPosition = xCoord;
-		packet.yPosition = yCoord;
-		packet.zPosition = zCoord;
-		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
-		packet.data = nbt;
-		return packet;
-	}	
-	
-	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
-		readFromNBT(pkt.data);
-	}
+//	@Override
+//	public Packet getDescriptionPacket() {
+//		Packet132TileEntityData packet = new Packet132TileEntityData();
+//		packet.actionType = 0;
+//		packet.xPosition = xCoord;
+//		packet.yPosition = yCoord;
+//		packet.zPosition = zCoord;
+//		NBTTagCompound nbt = new NBTTagCompound();
+//		writeToNBT(nbt);
+//		packet.data = nbt;
+//		return packet;
+//	}	
+//	
+//	@Override
+//	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
+//		readFromNBT(pkt.data);
+//	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
@@ -111,10 +116,10 @@ IPeripheral, IInventory {
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
-	@Override
-	public String getInvName() {
-		return inventory.getInvName();
-	}
+//	@Override
+//	public String getInvName() {
+//		return inventory.getInvName();
+//	}
 	
 	@Override
 	public int getInventoryStackLimit() {
@@ -126,13 +131,13 @@ IPeripheral, IInventory {
 		return inventory.isUseableByPlayer(entityplayer);
 	}
 
-	@Override
-	public void openChest() {
-	}
-
-	@Override
-	public void closeChest() {
-	}
+//	@Override
+//	public void openChest() {
+//	}
+//
+//	@Override
+//	public void closeChest() {
+//	}
 
 
 	/* Peripheral proxy methods */
@@ -148,7 +153,7 @@ IPeripheral, IInventory {
 	}
 
 	@Override
-	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws Exception {
+	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method, Object[] arguments) throws LuaException, InterruptedException{
 		return peripheral.callMethod(computer, context, method, arguments);
 	}
 
@@ -182,11 +187,11 @@ IPeripheral, IInventory {
 		return worldObj;
 	}
 
-	@Override
-	public boolean isInvNameLocalized() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+//	@Override
+//	public boolean isInvNameLocalized() {
+//		// TODO Auto-generated method stub
+//		return true;
+//	}
 
 	@Override
 	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
@@ -199,4 +204,32 @@ IPeripheral, IInventory {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+    @Override
+    public void closeInventory()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getInventoryName()
+    {
+        // TODO Auto-generated method stub
+        return inventory.getInventoryName();
+    }
+
+    @Override
+    public boolean hasCustomInventoryName()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void openInventory()
+    {
+        // TODO Auto-generated method stub
+        
+    }
 }

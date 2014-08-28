@@ -1,10 +1,15 @@
 package openccsensors.common.item.meta;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.IItemMeta;
@@ -13,7 +18,7 @@ import openccsensors.api.IRequiresIconLoading;
 public class ItemMetaAdvancedAmplifier implements IItemMeta, IRequiresIconLoading {
 
 	private int id;
-	private Icon icon;
+	private IIcon icon;
 	
 	public ItemMetaAdvancedAmplifier(int id) {
 		this.id = id;
@@ -26,10 +31,10 @@ public class ItemMetaAdvancedAmplifier implements IItemMeta, IRequiresIconLoadin
 				"igi",
 				"rdr",
 				"igi",
-				Character.valueOf('i'), new ItemStack(Item.ingotIron),
-				Character.valueOf('g'), new ItemStack(Item.ingotGold),
-				Character.valueOf('r'), new ItemStack(Item.redstone),
-				Character.valueOf('d'), new ItemStack(Item.diamond),			
+				Character.valueOf('i'), new ItemStack(Items.iron_ingot),
+				Character.valueOf('g'), new ItemStack(Items.gold_ingot),
+				Character.valueOf('r'), new ItemStack(Items.redstone),
+				Character.valueOf('d'), new ItemStack(Items.diamond),			
 			}
 		));
 	}
@@ -45,12 +50,12 @@ public class ItemMetaAdvancedAmplifier implements IItemMeta, IRequiresIconLoadin
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:advancedAmplifier");
 	}
 

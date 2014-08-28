@@ -1,12 +1,16 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import openccsensors.api.IRequiresIconLoading;
@@ -15,7 +19,7 @@ import openccsensors.api.ISensorTier;
 
 public class SonicSensor implements ISensor, IRequiresIconLoading {
 	
-	private Icon icon;
+	private IIcon icon;
 	private static final int BASE_RANGE = 1;
 	
 	@Override
@@ -27,18 +31,17 @@ public class SonicSensor implements ISensor, IRequiresIconLoading {
 		int y = (int) target.yCoord;
 		int z = (int) target.zCoord;
 		
-		int id = world.getBlockId(x, y, z);
 		
-		Block block = Block.blocksList[id];
+		Block block = world.getBlock(x, y, z);
 		
 		HashMap response = new HashMap();
 		
 		String type = "UNKNOWN";
 
-		if (block != null && block.blockMaterial != null) {
-			if (block.blockMaterial.isLiquid()) {
+		if (block != null && block.getMaterial() != null) {
+			if (block.getMaterial().isLiquid()) {
 				type = "LIQUID";
-			} else if (block.blockMaterial.isSolid()) {
+			} else if (block.getMaterial().isSolid()) {
 				type = "SOLID";
 			}
 		}
@@ -74,11 +77,10 @@ public class SonicSensor implements ISensor, IRequiresIconLoading {
 						int bY = sy + y;
 						int bZ = sz + z;
 
-						int id = world.getBlockId(bX, bY, bZ);
 
-						Block block = Block.blocksList[id];
+						Block block = world.getBlock(bX, bY, bZ);
 
-						if (!(id == 0 || block == null)) {
+						if (!(block == Blocks.air || block == null)) {
 							Vec3 targetPos = Vec3.createVectorHelper(
 									bX,
 									bY,
@@ -113,18 +115,18 @@ public class SonicSensor implements ISensor, IRequiresIconLoading {
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:sonic");
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Block.jukebox);
+		return new ItemStack(Blocks.jukebox);
 	}
 
 }

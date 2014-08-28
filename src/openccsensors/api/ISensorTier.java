@@ -1,12 +1,16 @@
 package openccsensors.api;
 
-import net.minecraft.util.Icon;
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
+import net.minecraft.util.IIcon;
 
 public interface ISensorTier {
 	
 	public EnumItemRarity getRarity();
 	public double getMultiplier();
 	public String getName();
-	public Icon getIcon();
+	public IIcon getIcon();
 	
 }

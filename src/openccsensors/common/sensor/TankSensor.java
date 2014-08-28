@@ -1,15 +1,19 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import openccsensors.api.IRequiresIconLoading;
@@ -19,7 +23,7 @@ import openccsensors.common.util.TankUtils;
 
 public class TankSensor extends TileSensor implements ISensor, IRequiresIconLoading {
 	
-	private Icon icon;
+	private IIcon icon;
 
 	@Override
 	public boolean isValidTarget(Object tile) {
@@ -57,18 +61,21 @@ public class TankSensor extends TileSensor implements ISensor, IRequiresIconLoad
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:tank");
 	}
 
 	@Override
 	public ItemStack getUniqueRecipeItem() {
-		return new ItemStack(Item.bucketEmpty);
+		return new ItemStack(Items.bucket);
 	}
 
 }
+
+
+

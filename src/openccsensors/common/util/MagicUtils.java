@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.tileentity.TileEntity;
@@ -7,7 +11,7 @@ import net.minecraft.world.World;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-import am2.api.power.IPowerIntegration;
+//import am2.api.power.IPowerIntegration;
 
 public class MagicUtils {
 
@@ -16,7 +20,8 @@ public class MagicUtils {
 	}
 
 	public static boolean isValidEssenceTarget(Object target) {
-		return target != null && target instanceof IPowerIntegration;
+	    return false;
+//		return target != null && target instanceof IPowerIntegration;
 	}
 
 	public static HashMap getMapOfAspects(World world, Object obj, boolean additional) {
@@ -47,18 +52,18 @@ public class MagicUtils {
 			return response;
 		}
 
-		if (obj instanceof IPowerIntegration) {
-			IPowerIntegration powerObj = (IPowerIntegration) obj;
-			response.put("EssenceCharge", powerObj.getCharge());
-			response.put("EssenceCapacity", powerObj.getCapacity());
-			response.put("EssenceDeficit", powerObj.getDefecit());
-			response.put("EssenceDeficitThreshold", powerObj.getDefecitThreshold());
-			response.put("IsNexus", powerObj.isNexus());
-			response.put("IsNexusImpersonator", powerObj.isNexusImpersonator());
-			response.put("HasNexusPath", powerObj.hasNexusPath());
-			response.put("HopsToNexus", powerObj.getNumHopsToNexus());
-			response.put("ChargeRate", powerObj.getChargeRate());
-		}
+//		if (obj instanceof IPowerIntegration) {
+//			IPowerIntegration powerObj = (IPowerIntegration) obj;
+//			response.put("EssenceCharge", powerObj.getCharge());
+//			response.put("EssenceCapacity", powerObj.getCapacity());
+//			response.put("EssenceDeficit", powerObj.getDefecit());
+//			response.put("EssenceDeficitThreshold", powerObj.getDefecitThreshold());
+//			response.put("IsNexus", powerObj.isNexus());
+//			response.put("IsNexusImpersonator", powerObj.isNexusImpersonator());
+//			response.put("HasNexusPath", powerObj.hasNexusPath());
+//			response.put("HopsToNexus", powerObj.getNumHopsToNexus());
+//			response.put("ChargeRate", powerObj.getChargeRate());
+//		}
 		return response;
 	}
 }

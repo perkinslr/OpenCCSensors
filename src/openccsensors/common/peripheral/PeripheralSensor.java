@@ -1,5 +1,9 @@
 package openccsensors.common.peripheral;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -16,6 +20,7 @@ import openccsensors.api.SensorCard;
 import openccsensors.common.item.ItemSensorCard;
 import openccsensors.common.util.CallbackEventManager;
 import dan200.computercraft.api.lua.ILuaContext;
+import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.peripheral.IComputerAccess;
 import dan200.computercraft.api.peripheral.IPeripheral;
 
@@ -231,7 +236,8 @@ public class PeripheralSensor implements IPeripheral, ISensorAccess {
 
 	@Override
 	public Object[] callMethod(IComputerAccess computer, ILuaContext context, int method,
-			Object[] arguments) throws Exception {
+			Object[] arguments) throws LuaException, InterruptedException{
+	    
 		int id = eventManager.queueMethodCall(computer, method, arguments);
 		while (true) {
 			Object[] params = context.pullEvent(null);

@@ -1,5 +1,9 @@
 package openccsensors.common;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -12,7 +16,7 @@ public class GuiHandler implements IGuiHandler {
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			return new ContainerSensor(player.inventory, tile);
 		}
@@ -21,7 +25,7 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		TileEntity tile = world.getBlockTileEntity(x, y, z);
+		TileEntity tile = world.getTileEntity(x, y, z);
 		if (tile != null) {
 			if (tile instanceof TileEntitySensor) {
 				return new GuiSensor(player.inventory, tile);

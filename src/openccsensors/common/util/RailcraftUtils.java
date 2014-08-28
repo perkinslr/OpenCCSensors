@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import mods.railcraft.api.carts.IEnergyTransfer;
@@ -14,7 +18,7 @@ public class RailcraftUtils {
 		if (minecart instanceof IEnergyTransfer) {
 			IEnergyTransfer energyCart = (IEnergyTransfer) minecart;
 			int capacity = energyCart.getCapacity();
-			int stored = energyCart.getEnergy();
+			double stored = energyCart.getEnergy();
 			
 			response.put("Stored", stored);
 			response.put("Capacity", capacity);

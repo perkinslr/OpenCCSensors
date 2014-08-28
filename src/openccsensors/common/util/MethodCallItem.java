@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import dan200.computercraft.api.peripheral.IComputerAccess;
 
 public class MethodCallItem {

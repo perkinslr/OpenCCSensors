@@ -1,11 +1,17 @@
 package openccsensors.common.item.meta;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import openccsensors.OpenCCSensors;
 import openccsensors.api.IItemMeta;
@@ -14,7 +20,7 @@ import openccsensors.api.IRequiresIconLoading;
 public class ItemMetaRangeExtensionAntenna implements IItemMeta, IRequiresIconLoading {
 	
 	private int id;
-	private Icon icon;
+	private IIcon icon;
 	
 	public ItemMetaRangeExtensionAntenna(int id) {
 		this.id = id;
@@ -27,10 +33,10 @@ public class ItemMetaRangeExtensionAntenna implements IItemMeta, IRequiresIconLo
 				" t ",
 				"srs",
 				"sis",
-				Character.valueOf('t'), new ItemStack(Block.torchRedstoneActive),
-				Character.valueOf('s'), new ItemStack(Block.stone),
-				Character.valueOf('r'), new ItemStack(Item.redstone),
-				Character.valueOf('i'), new ItemStack(Item.ingotIron),				
+				Character.valueOf('t'), new ItemStack(Blocks.redstone_torch),
+				Character.valueOf('s'), new ItemStack(Blocks.stone),
+				Character.valueOf('r'), new ItemStack(Items.redstone),
+				Character.valueOf('i'), new ItemStack(Items.iron_ingot),				
 			}
 		));
 	}
@@ -46,12 +52,12 @@ public class ItemMetaRangeExtensionAntenna implements IItemMeta, IRequiresIconLo
 	}
 
 	@Override
-	public Icon getIcon() {
+	public IIcon getIcon() {
 		return icon;
 	}
 
 	@Override
-	public void loadIcon(IconRegister iconRegistry) {
+	public void loadIcon(IIconRegister iconRegistry) {
 		icon = iconRegistry.registerIcon("openccsensors:rangeExtensionAntenna");
 	}
 	

@@ -1,5 +1,9 @@
 package openccsensors.common.sensor;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.HashMap;
 
 import net.minecraft.item.ItemStack;
@@ -50,7 +54,7 @@ public abstract class TileSensor {
 
 					String name = String.format("%s,%s,%s", x, y, z);
 
-					TileEntity tile = world.getBlockTileEntity(tileX, tileY, tileZ);
+					TileEntity tile = world.getTileEntity(tileX, tileY, tileZ);
 
 					if (isValidTarget(tile)) {
 						targets.put(name, tile);

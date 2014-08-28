@@ -1,5 +1,9 @@
 package openccsensors.common.util;
 
+import net.minecraft.init.Blocks;
+
+import net.minecraft.init.Items;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +15,6 @@ import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
@@ -41,8 +44,8 @@ public class EntityUtils {
 						);
 						if ((Vec3.createVectorHelper((double)location.posX, (double)location.posY, (double)location.posZ)).distanceTo(livingPos) <= radius && filter.isAssignableFrom(entity.getClass())) {
 							String targetName = (entity instanceof EntityPlayer) ? entity
-									.getEntityName() : entity
-									.getEntityName() + entity.entityId;
+									.getCommandSenderName() : entity
+									.getCommandSenderName() + entity.getEntityId();
 							targetName = targetName.replaceAll("\\s", "");
 							map.put(targetName, entity);
 						}
@@ -64,7 +67,7 @@ public class EntityUtils {
 		position.put("Z", living.posZ - sensorPos.posZ);
 		map.put("Position", position);
 
-		map.put("Name", (living instanceof EntityPlayer) ? "Player" : living.getEntityName());
+		map.put("Name", (living instanceof EntityPlayer) ? "Player" : living.getCommandSenderName());
 		map.put("RawName", living.getClass().getName());
 		map.put("IsPlayer", living instanceof EntityPlayer);
 		
@@ -73,10 +76,10 @@ public class EntityUtils {
 			map.put("HeldItem", InventoryUtils.itemstackToMap(living.getHeldItem()));
 	
 			HashMap armour = new HashMap();
-			armour.put("Boots", InventoryUtils.itemstackToMap(living.getCurrentItemOrArmor(1)));
-			armour.put("Leggings", InventoryUtils.itemstackToMap(living.getCurrentItemOrArmor(2)));
-			armour.put("Chestplate", InventoryUtils.itemstackToMap(living.getCurrentItemOrArmor(3)));
-			armour.put("Helmet", InventoryUtils.itemstackToMap(living.getCurrentItemOrArmor(4)));
+			armour.put("Boots", InventoryUtils.itemstackToMap(living.getEquipmentInSlot(1)));
+			armour.put("Leggings", InventoryUtils.itemstackToMap(living.getEquipmentInSlot(2)));
+			armour.put("Chestplate", InventoryUtils.itemstackToMap(living.getEquipmentInSlot(3)));
+			armour.put("Helmet", InventoryUtils.itemstackToMap(living.getEquipmentInSlot(4)));
 			
 			map.put("Armour", armour);
 			map.put("Health", living.getHealth());
@@ -107,7 +110,7 @@ public class EntityUtils {
 	
 		if (living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
-			map.put("Username", player.username);
+			map.put("Username", player.getDisplayName());
 			map.put("IsBlocking", player.isBlocking());
 			map.put("ExperienceTotal", player.experienceTotal);
 			map.put("ExperienceLevel", player.experienceLevel);
@@ -117,19 +120,19 @@ public class EntityUtils {
 				map.put("Gamemode", player.capabilities.isCreativeMode);
 				map.put("Inventory", InventoryUtils.invToMap(player.inventory));
 
-		        Vec3 posVec = player.worldObj.getWorldVec3Pool().getVecFromPool(player.posX, player.posY + 1.62F, player.posZ);
+		        Vec3 posVec = Vec3.createVectorHelper(player.posX, player.posY + 1.62F, player.posZ);
 		        Vec3 lookVec = player.getLook(1.0f);
 		        Vec3 targetVec = posVec.addVector(lookVec.xCoord * 10f, lookVec.yCoord * 10f, lookVec.zCoord * 10f);
-		        MovingObjectPosition mop = player.worldObj.clip(posVec, targetVec);
-		        map.put("IsLookingAtBlock", mop.typeOfHit == EnumMovingObjectType.TILE);
-		        if (mop.typeOfHit == EnumMovingObjectType.TILE) {
-		        	int blockId = player.worldObj.getBlockId(mop.blockX, mop.blockY, mop.blockZ);
-		        	HashMap lookingAt = new HashMap();
-		        	lookingAt.put("X", mop.blockX - sensorPos.posX);
-		        	lookingAt.put("Y", mop.blockY - sensorPos.posY);
-		        	lookingAt.put("Z", mop.blockZ - sensorPos.posZ);
-		        	map.put("LookingAt", lookingAt);
-		        }
+//		        MovingObjectPosition mop = player.worldObj.clip(posVec, targetVec);
+//		        map.put("IsLookingAtBlock", mop.typeOfHit == EnumMovingObjectType.TILE);
+//		        if (mop.typeOfHit == EnumMovingObjectType.TILE) {
+//		        	int blockId = player.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
+//		        	HashMap lookingAt = new HashMap();
+//		        	lookingAt.put("X", mop.blockX - sensorPos.posX);
+//		        	lookingAt.put("Y", mop.blockY - sensorPos.posY);
+//		        	lookingAt.put("Z", mop.blockZ - sensorPos.posZ);
+//		        	map.put("LookingAt", lookingAt);
+//		        }
 			}
 		
 			map.put("Experience", player.experience);
@@ -140,7 +143,7 @@ public class EntityUtils {
 			map.put("IsSitting", tameable.isSitting());
 			map.put("IsTamed", tameable.isTamed());
 			if (tameable.isTamed()) {
-				map.put("OwnerName", tameable.getOwnerName());
+				map.put("OwnerName", tameable.getCommandSenderName());
 			}
 			if (tameable instanceof EntityWolf) {
 				EntityWolf wolf = (EntityWolf) tameable;
@@ -155,4 +158,5 @@ public class EntityUtils {
 
 		return map;
 	}
+
 }
